@@ -1,7 +1,6 @@
 package dmitry.dao;
 
 import dmitry.model.User;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -52,9 +51,6 @@ public class UserDaoImp implements UserDao{
     public void delete(long id) {
 //        Session session = sessionFactory.getCurrentSession();
 //        session.delete(session.get(User.class,id));
-
-        entityManager.remove(entityManager.find(User.class,id));
-
-
+          entityManager.createQuery("DELETE FROM User WHERE id= ?1").setParameter(1,id).executeUpdate();
     }
 }

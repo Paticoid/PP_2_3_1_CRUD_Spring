@@ -6,6 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -21,6 +22,7 @@ public class User {
     @Column(name = "age")
     @Min(value = 1,message = "Age should be greater than 1")
     private int age;
+
     @Column(name = "email")
     @NotEmpty(message = "should not be empty")
     @Email(message = "Age should not be email")
@@ -75,6 +77,19 @@ public class User {
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 '}';
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return age == user.age && name.equals(user.name) && email.equals(user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        int cos = 17;
+        return cos * 31 + Objects.hash(name, age, email);
     }
 }
 
